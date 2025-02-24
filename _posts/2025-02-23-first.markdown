@@ -3,6 +3,7 @@ layout: post
 title: "Подключение библиотеки SFML"
 date: 2025-02-23
 ---
+<<<<<<< HEAD
 Есть несколько способов подключить библиотеку в C++ мы рассмотрим два, подходящие для Visual Studio:
 * Через CMake создать проект Visual Studio
 * Используя CMake Project в Visual Studio
@@ -119,3 +120,6 @@ target_link_libraries(main PRIVATE SFML::Graphics)
 После чего собираем с помощью CMake нашу сборку и запускаем её.
 
 [cmake]: https://cmake.org/download/
+=======
+Хахахахха Сава лох
+>>>>>>> 7e7e6ba4149fbb54b1b573f97332f9b8db6a82f1
