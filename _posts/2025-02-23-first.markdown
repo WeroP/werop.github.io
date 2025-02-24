@@ -1,6 +1,121 @@
 ---
 layout: post
-title: "first"
+title: "Подключение библиотеки SFML"
 date: 2025-02-23
 ---
-Хахахахха Алиса лох
+Есть несколько способов подключить библиотеку в C++ мы рассмотрим два, подходящие для Visual Studio:
+* Через CMake создать проект Visual Studio
+* Используя CMake Project в Visual Studio
+
+Прежде, чем начать установить на ваш ПК CMake. Пройдите на сайт
+[CMake][cmake] и выберете подходящую под вашу ОС версию. Проверить наличие программы можно командой:
+{% highlight bush%}
+cmake -version
+{% endhighlight %}
+# Первый способ
+Чтобы создать проект Visual Studio создаем в папке файл CMakeLists.txt со следующим
+содержимым:
+{% highlight bush%}
+cmake_minimum_required(VERSION 3.5...4.0)
+project(CMakeSFMLProject LANGUAGES CXX)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+include(FetchContent)
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.0
+    GIT_SHALLOW ON
+    EXCLUDE_FROM_ALL
+    SYSTEM)
+FetchContent_MakeAvailable(SFML)
+add_executable(main src/main.cpp)
+target_compile_features(main PRIVATE cxx_std_17)
+target_link_libraries(main PRIVATE SFML::Graphics)
+{% endhighlight %}
+Также в папке вашего проекта добавьте папку src и поместите в неё файл main.cpp со следующим кодом:
+{% highlight cpp%}
+#include <SFML/Graphics.hpp>
+
+int main()
+{
+    // create the window
+    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "My window");
+
+    // run the program as long as the window is open
+    while (window.isOpen())
+    {
+        sf::CircleShape shape(50.f);
+        sf::Vector2f initpos{25.f,25.f};
+        shape.setPosition(initpos);
+        // set the shape color to green
+        shape.setFillColor(sf::Color(100, 250, 50));
+
+        // check all the window's events that were triggered since the last iteration of the loop
+        while (const std::optional event = window.pollEvent())
+        {
+            window.clear();
+            // "close requested" event: we close the window
+            if (event->is<sf::Event::Closed>())
+                window.close();
+            shape.setPosition((sf::Vector2f)sf::Mouse::getPosition(window));
+            window.draw(shape);
+            
+        }
+
+        // clear the window with black color
+
+        // end the current frame
+        window.display();
+    }
+}
+{% endhighlight %}
+ Порядок действий для создания проекта:
+- Прописываем в консоли следующую команду
+  {% highlight bush%} cmake . -G "Visual Studio 17 2022" -B .build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 {% endhighlight %}
+- После создания проекта находим в папке .build находим файл .sln и открываем его с помощью Visual Studio.
+- Компилируем проект. При попытке его запустить может возникнуть ошибка в отказе к доступу, решаем её следующим способом. Открываем свойства в проекта кликая правой кнопкой мыши по нему
+![Image](/assets/cmake/img/1.png){: style="display: block; margin: 0 auto"} 
+![Image](/assets/cmake/img/2.png){: style="display: block; margin: 0 auto"} 
+![Image](/assets/cmake/img/3.png){: style="display: block; margin: 0 auto"} 
+Теперь заново запускаем проект и вы должны увидеть окно SFML, а также кружок, который двигается за курсором.
+
+# Второй способ
+Здесь мы создадим проект уже в самом редакторе Visual Studio. Для начала убедимся, что мы скачали CMake для него, поэтому мы перейдем 
+к установщику VisualStudioSetup.exe и перейдем ко вкладке "Отдельные компоненты" и выбираем средства CMake для C++. После того, как мы 
+убедились в создайте проект CMake в Visual Studio.
+{% highlight bush%}
+#CMakeList.txt: файл проекта CMake верхнего уровня; проведите глобальную конфигурацию
+#и включите сюда подпроекты.
+cmake_minimum_required (VERSION 3.8)
+
+Включение горячей перезагрузки для компиляторов MSVC, если поддерживается.
+if (POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+endif()
+
+project ("SiteExample")
+
+Включите подпроекты.
+add_subdirectory ("SiteExample")
+{% endhighlight %}
+Можно убрать строчку add_subdirectory ("SiteExample") и добавить вместо неё
+{% highlight bush%}
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+include(FetchContent)
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.0
+    GIT_SHALLOW ON
+    EXCLUDE_FROM_ALL
+    SYSTEM)
+FetchContent_MakeAvailable(SFML)
+
+add_executable(main src/main.cpp)
+target_compile_features(main PRIVATE cxx_std_17)
+target_link_libraries(main PRIVATE SFML::Graphics)
+{% endhighlight %}
+Также создаем в папке проекта src/main.cpp с таким же содержимым как в прошлом пункте.
+После чего собираем с помощью CMake нашу сборку и запускаем её.
+
+[cmake]: https://cmake.org/download/
