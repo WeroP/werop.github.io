@@ -5,6 +5,9 @@ format:
   html:
     toc: true
     html-math-method: mathjax
+description: "Об энергии в молекулярной теории"
+date: 2026-10-12
+categories: [Физика, МКТ]
 ---
 
 ## Кинетическая и потенциальная энергия
