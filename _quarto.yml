@@ -8,8 +8,8 @@ project:
 lang: ru
 
 website:
-  title: "Физика в заметках"
-  description: "Заметки по физике и математике: идеи, уравнения и разборы задач."
+  title: "Physics"
+  description: ""
   # После публикации можно добавить полный адрес, например:
   # site-url: https://USERNAME.github.io/my-site/
   navbar:
@@ -19,15 +19,12 @@ website:
         text: Главная
       - href: notes.qmd
         text: Заметки
-      - href: writing.qmd
-        text: Как писать
   search:
     location: navbar
     type: overlay
   page-footer:
-    left: "Физика в заметках"
-    right: "Создано с [Quarto](https://quarto.org/)"
-
+    left: "Physics"
+    
 format:
   html:
     theme:
