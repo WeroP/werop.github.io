@@ -1,0 +1,46 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "posts/**/*.qmd"
+
+lang: ru
+
+website:
+  title: "Физика в заметках"
+  description: "Заметки по физике и математике: идеи, уравнения и разборы задач."
+  # После публикации можно добавить полный адрес, например:
+  # site-url: https://USERNAME.github.io/my-site/
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Главная
+      - href: notes.qmd
+        text: Заметки
+      - href: writing.qmd
+        text: Как писать
+  search:
+    location: navbar
+    type: overlay
+  page-footer:
+    left: "Физика в заметках"
+    right: "Создано с [Quarto](https://quarto.org/)"
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    respect-user-color-scheme: true
+    css: styles.css
+    toc: true
+    toc-title: На этой странице
+    toc-depth: 3
+    html-math-method: mathjax
+    code-copy: true
+    highlight-style: github
+    anchor-sections: true
+    smooth-scroll: true
+

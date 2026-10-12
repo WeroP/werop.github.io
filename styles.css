@@ -1,0 +1,72 @@
+/* Небольшие дополнения к готовым темам Cosmo и Darkly. */
+:root {
+  --note-accent: #236d79;
+  --note-panel: #edf5f5;
+  --note-border: #c8dddd;
+}
+
+body.quarto-dark {
+  --note-accent: #90d5dd;
+  --note-panel: #27353a;
+  --note-border: #456068;
+}
+
+body {
+  line-height: 1.7;
+}
+
+.navbar-brand {
+  font-weight: 650;
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+}
+
+.home-intro {
+  color: var(--note-accent);
+  font-size: 0.85rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: clamp(1.25rem, 2.3vw, 1.7rem);
+  line-height: 1.45;
+  max-width: 40rem;
+}
+
+.formula-panel {
+  margin: 1.8rem 0;
+  padding: 1.2rem 1.4rem;
+  border-left: 4px solid var(--note-accent);
+  border-radius: 0 0.5rem 0.5rem 0;
+  background: var(--note-panel);
+  overflow-x: auto;
+}
+
+.btn {
+  border-radius: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+main p > a:not(.btn) {
+  text-underline-offset: 0.18em;
+}
+
+div.quarto-post {
+  border-bottom-color: var(--note-border);
+}
+
+@media (max-width: 600px) {
+  .formula-panel {
+    padding: 0.8rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.05rem;
+  }
+}
+

@@ -1,0 +1,14 @@
+/.quarto/
+/_site/
+/site_libs/
+# Вспомогательные HTML-файлы и индексы, оставленные сборкой Quarto.
+*.html
+*-listing.json
+/.Rproj.user/
+.Rhistory
+.DS_Store
+*~
+*.swp
+
+
+**/*.quarto_ipynb

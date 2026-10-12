@@ -1,0 +1,18 @@
+---
+title: "Заметки"
+description: "Конспекты и разборы задач по физике и математике."
+toc: false
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  categories: true
+  fields: [date, title, description, categories]
+  date-format: "DD.MM.YYYY"
+  sort-ui: false
+  filter-ui: true
+---
+
+Здесь собраны статьи и конспекты. Новые файлы из каталога `posts`
+появляются в списке автоматически после сборки сайта.
+
